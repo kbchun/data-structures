@@ -5,12 +5,13 @@ var Queue = function(counter, storage) {
   this.storage = {};
 };
 
-Queue.prototype.enqueue = function(value) {
+
+Queue.prototype.enqueue = function (value) {
   this.counter++;
   this.storage[this.counter] = value;
 };
 
-Queue.prototype.dequeue = function() {
+Queue.prototype.dequeue = function () {
   var result = this.storage[1];
   var key = 1;
   var newStorage = {};
@@ -27,7 +28,6 @@ Queue.prototype.dequeue = function() {
   }
   return result;
 };
-
-Queue.prototype.size = function() {
+Queue.prototype.size = function () {
   return this.counter;
 };

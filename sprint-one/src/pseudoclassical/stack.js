@@ -6,19 +6,19 @@ var Stack = function(counter, storage) {
 };
 
 Stack.prototype.push = function(value) {
-	this.counter++;
+  this.counter++;
   this.storage[this.counter] = value;
 };
 
 Stack.prototype.pop = function() {
-	var result = this.storage[this.counter];
-    if (this.counter > 0) {
-      delete this.storage[this.counter];
-      this.counter--;
-    }
-    return result;
+  var result = this.storage[this.counter];
+  if (this.counter > 0) {
+    delete this.storage[this.counter];
+    this.counter--;
+  }
+  return result;
 };
 
 Stack.prototype.size = function() {
-	return this.counter;
+  return this.counter;
 };
