@@ -85,8 +85,17 @@ define([
         stack.pop();
         expect(stack.pop()).to.equal('b');
       });
-    });
 
+      it('does not allow value of undefined to be enqueued', function() {
+        stack.push(undefined);
+        expect(stack.size()).to.equal(0);
+      });
+
+      it('does not allow value of null to be enqueued', function() {
+        stack.push(null);
+        expect(stack.size()).to.equal(0);
+      });
+    });
   });
 
   describe('queue', function() {
@@ -140,7 +149,16 @@ define([
         queue.enqueue('b');
         expect(queue.dequeue()).to.equal('b');
       });
+      //shouldnt allow to add undefined or null
+      it('does not allow value of undefined to be enqueued', function() {
+        queue.enqueue(undefined);
+        expect(queue.size()).to.equal(0);
+      });
 
+      it('does not allow value of null to be enqueued', function() {
+        queue.enqueue(null);
+        expect(queue.size()).to.equal(0);
+      });
     });
 
     describe('queue-specific behavior', function() {

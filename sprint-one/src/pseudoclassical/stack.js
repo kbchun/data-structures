@@ -6,8 +6,10 @@ var Stack = function(counter, storage) {
 };
 
 Stack.prototype.push = function(value) {
-  this.counter++;
-  this.storage[this.counter] = value;
+  if (value !== undefined && value !== null) {
+    this.counter++;
+    this.storage[this.counter] = value;
+  }
 };
 
 Stack.prototype.pop = function() {
