@@ -16,11 +16,28 @@ var LinkedList = function() {
     list.tail = end;
   };
 
+  list.remove = function(value) {
+    if (value === 'head' || value === list.head.value) {
+      list.removeHead();
+    } else {
+      var curr = list.head;
+      while (curr.value !== null) {
+        if (curr.next.value === value) {
+          curr.next = curr.next.next;
+          break;
+        } else {
+          curr = curr.next;
+        }
+      }
+    }
+  };
+
   list.removeHead = function() {
     var removed = list.head;
     list.head = removed.next;
     return removed.value;
   };
+
 
   list.contains = function(target) {
     var checker = false;

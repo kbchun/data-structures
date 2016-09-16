@@ -52,4 +52,25 @@ describe('linkedList', function() {
   });
 
   // add more tests here to test the functionality of linkedList
+  it('should remove a value from the middle of list and keep the linked list in tact', function() {
+    linkedList.addToTail(4);
+    linkedList.addToTail(5);
+    linkedList.addToTail(6);
+    linkedList.remove(5);
+    expect(linkedList.contains(5)).to.equal(false);
+    // tests if head's (4) next is pointing to 6;
+    expect(linkedList.head.next.value).to.equal(6);
+  });
+
+  it('remove method on "head" should still remove a value from the head of list', function() {
+    linkedList.addToTail(4);
+    linkedList.addToTail(5);
+    linkedList.addToTail(6);
+    linkedList.remove('head');
+    expect(linkedList.contains(4)).to.equal(false);
+    expect(linkedList.head.value).to.equal(5);
+  });
+
+
+
 });
