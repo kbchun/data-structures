@@ -36,4 +36,19 @@ describe('binarySearchTree', function() {
     binarySearchTree.depthFirstLog(func);
     expect(array).to.eql([5, 2, 3]);
   });
+
+  it('should return true if max depth is more than twice the min depth', function() {
+    binarySearchTree.insert(4);
+    binarySearchTree.insert(6);
+    binarySearchTree.insert(7);
+    binarySearchTree.insert(8);
+    expect(binarySearchTree.checkBalance()).to.equal(true);
+  });
+
+  it('should return false if max depth is less than twice the min depth', function() {
+    binarySearchTree.insert(4);
+    binarySearchTree.insert(6);
+    binarySearchTree.insert(7);
+    expect(binarySearchTree.checkBalance()).to.equal(false);
+  });
 });

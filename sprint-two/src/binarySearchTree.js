@@ -47,6 +47,28 @@ BinarySearchTree.prototype.depthFirstLog = function(cb) {
 };
 
 
+BinarySearchTree.prototype.checkBalance = function() {
+  var results = [];
+  var checkDepths = function(level) {
+    if (this.left === null && this.right === null) { // reached end of branch
+      results.push(level);
+    } else if (this.left !== null && this.right === null) {
+      checkDepths.call(this.left, level + 1);
+    } else if (this.right !== null && this.left === null) {
+      checkDepths.call(this.right, level + 1);
+    } else { // both are not null
+      checkDepths.call(this.left, level + 1);
+      checkDepths.call(this.right, level + 1);
+    }
+  };
+  checkDepths.call(this, 0);
+  results.sort();
+  return results[results.length - 1] / results[0] > 2;
+};
+
+BinarySearchTree.prototype.balance = function() {
+
+};
 /*
  * Complexity: What is the time complexity of the above functions?
  * insert: O(n) --if not balanced  O(logn) --if balanced
