@@ -68,4 +68,27 @@ describe('graph', function() {
     expect(graph.hasEdge(3, 5)).to.equal(true);
     expect(graph.hasEdge(5, 5)).to.equal(true);
   });
+
+  it('should return total number of nodes in graph', function() {
+    graph.addNode(4);
+    graph.addNode(5);
+    graph.addNode(6);
+    expect(graph.numNodes()).to.equal(3);
+  });
+
+  it('should return list of detached nodes in graph', function() {
+    graph.addNode(4);
+    graph.addNode(5);
+    graph.addEdge(4, 5);
+    graph.addNode(6);
+    expect(graph.detachedNodes()).to.eql([6]);
+  });
+
+  it('should return list of connected nodes in graph', function() {
+    graph.addNode(4);
+    graph.addNode(5);
+    graph.addEdge(4, 5);
+    graph.addNode(6);
+    expect(graph.connectedNodes()).to.eql([4, 5]);
+  });
 });

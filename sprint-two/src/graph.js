@@ -55,6 +55,24 @@ Graph.prototype.forEachNode = function(cb) {
   }
 };
 
+Graph.prototype.numNodes = function() {
+  return this.storage.length;
+};
+
+Graph.prototype.detachedNodes = function() {
+  var result = [];
+  for (var node in this.edges) {
+    if (this.edges[node].length === 0) {
+      result.push(+node);
+    }
+  }
+  return result;
+};
+
+Graph.prototype.connectedNodes = function() {
+  return _.difference(this.storage, this.detachedNodes());
+};
+
 /*
  * Complexity: What is the time complexity of the above functions?
  * addNode: O(1)
