@@ -8,6 +8,16 @@ var BinarySearchTree = function(value) {
   return tree;
 };
 
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// check if unbalanced after every insert; if unbalanced, then balance;
+
+var checkAndBalance = function() {
+  if (this.unbalanced()) {
+    this.balance();
+  }
+};
+
+
 BinarySearchTree.prototype.insert = function(value) {
   var child = BinarySearchTree(value);
 
@@ -15,11 +25,15 @@ BinarySearchTree.prototype.insert = function(value) {
     this.left = child;
   } else if (value > this.value && this.right === null) { // insert right if head's right is null
     this.right = child;
+    
   } else if (value < this.value) { // recursive call if head's left is not null
     this.left.insert(value);
+    
   } else if (value > this.value) { // recursive call if head's right is not null
     this.right.insert(value);
+    
   }
+  checkAndBalance.bind(this)();
 
 };
 
@@ -40,14 +54,14 @@ BinarySearchTree.prototype.depthFirstLog = function(cb) {
   cb(this.value);
   if (this.left !== null) {
     this.left.depthFirstLog(cb);
-  } else if (this.right !== null) {
+  } if (this.right !== null) {
     this.right.depthFirstLog(cb);
   }
 
 };
 
 
-BinarySearchTree.prototype.checkBalance = function() {
+BinarySearchTree.prototype.unbalanced = function() {
   var results = [];
   var checkDepths = function(level) {
     if (this.left === null && this.right === null) { // reached end of branch
@@ -61,13 +75,51 @@ BinarySearchTree.prototype.checkBalance = function() {
       checkDepths.call(this.right, level + 1);
     }
   };
-  checkDepths.call(this, 0);
+
+
+  checkDepths.call(this, 1);
   results.sort();
+
+  if (this.left === null || this.right === null) {
+    return results[results.length - 1] / 1 > 2;  
+  }
   return results[results.length - 1] / results[0] > 2;
 };
 
-BinarySearchTree.prototype.balance = function() {
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// currently doesnt handle case when tree has only one branch.
 
+BinarySearchTree.prototype.balance = function() {
+  var nodes = [];
+  this.depthFirstLog(function(node) {
+    nodes.push(node);
+  });
+  nodes.sort(function(a, b) {
+    return a - b;
+  });
+  var indexPivot = Math.floor(nodes.length / 2);
+  var pivot = nodes[indexPivot];
+
+  var leftSide = nodes.slice(0, indexPivot);
+  var rightSide = nodes.slice(indexPivot + 1);
+
+  // var bst = BinarySearchTree(pivot);
+  this.value = pivot;
+  this.left = null;
+  this.right = null;
+
+
+  nodes.splice(indexPivot, 1);
+  
+  while (leftSide.length > 0 || rightSide.length > 0) {
+    if (leftSide.length > 0) {
+      var leftMid = leftSide.splice(Math.floor(leftSide.length / 2), 1);
+      this.insert(leftMid[0]);
+    } if (rightSide.length > 0) {
+      var rightMid = rightSide.splice(Math.floor(rightSide.length / 2), 1);
+      this.insert(rightMid[0]);
+    }
+  }
 };
 /*
  * Complexity: What is the time complexity of the above functions?

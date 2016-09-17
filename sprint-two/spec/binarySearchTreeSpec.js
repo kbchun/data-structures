@@ -16,8 +16,8 @@ describe('binarySearchTree', function() {
     binarySearchTree.insert(3);
     binarySearchTree.insert(7);
     binarySearchTree.insert(6);
-    expect(binarySearchTree.left.right.value).to.equal(3);
-    expect(binarySearchTree.right.left.value).to.equal(6);
+    expect(binarySearchTree.right.value).to.equal(6);
+    expect(binarySearchTree.right.left.value).to.equal(5);
   });
 
   it('should have a working "contains" method', function() {
@@ -33,22 +33,62 @@ describe('binarySearchTree', function() {
     var func = function(value) { array.push(value); };
     binarySearchTree.insert(2);
     binarySearchTree.insert(3);
+    binarySearchTree.insert(7);
     binarySearchTree.depthFirstLog(func);
-    expect(array).to.eql([5, 2, 3]);
+    expect(array).to.eql([3, 2, 5, 7]);
   });
 
-  it('should return true if max depth is more than twice the min depth', function() {
+  // it('should return true if max depth is more than twice the min depth', function() {
+  //   binarySearchTree = BinarySearchTree(6);
+  //   binarySearchTree.insert(4);
+  //   binarySearchTree.insert(7);
+  //   binarySearchTree.insert(8);
+  //   binarySearchTree.insert(9);
+  //   binarySearchTree.insert(10);
+  //   expect(binarySearchTree.unbalanced()).to.equal(true);
+  // });
+
+  it('should return false if max depth is less than twice the min depth', function() {
+    binarySearchTree = BinarySearchTree(6);
+    binarySearchTree.insert(4);
+    binarySearchTree.insert(7);
+    expect(binarySearchTree.unbalanced()).to.equal(false);
+  });
+
+  // unit test for balance function
+  it('should balance a tree', function() {
+    binarySearchTree.insert(1);
+    binarySearchTree.insert(2);
+    binarySearchTree.insert(3);
     binarySearchTree.insert(4);
     binarySearchTree.insert(6);
     binarySearchTree.insert(7);
     binarySearchTree.insert(8);
-    expect(binarySearchTree.checkBalance()).to.equal(true);
+    binarySearchTree.insert(9);
+    binarySearchTree.insert(10);
+    binarySearchTree.insert(11);
+    binarySearchTree.insert(12);
+    binarySearchTree.insert(13);
+    binarySearchTree.insert(14);
+    debugger;
+    binarySearchTree.balance();
+    expect(binarySearchTree.unbalanced()).to.equal(false);
   });
 
-  it('should return false if max depth is less than twice the min depth', function() {
+  it('should balance a tree that needs balancing', function() {
+    binarySearchTree.insert(1);
+    binarySearchTree.insert(2);
+    binarySearchTree.insert(3);
     binarySearchTree.insert(4);
     binarySearchTree.insert(6);
     binarySearchTree.insert(7);
-    expect(binarySearchTree.checkBalance()).to.equal(false);
+    binarySearchTree.insert(8);
+    binarySearchTree.insert(9);
+    binarySearchTree.insert(10);
+    binarySearchTree.insert(11);
+    binarySearchTree.insert(12);
+    binarySearchTree.insert(13);
+    binarySearchTree.insert(14);
+    expect(binarySearchTree.unbalanced()).to.equal(false);
   });
 });
